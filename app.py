@@ -2,7 +2,7 @@
 #run code with: streamlit run app.py
 
 
-import streamlit as st
+import streamlit as st #im using ver1.13.1
 from streamlit_drawable_canvas import st_canvas
 from PIL import Image, ImageDraw, ImageFont
 import numpy as np
