@@ -16,3 +16,6 @@ road_mask_inverted = cv2.bitwise_not(white_markings_mask)
 
 cv2.imshow("Inverted Road and Markings", road_mask_inverted)
 cv2.imwrite("mask.png",road_mask_inverted)
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
