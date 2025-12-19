@@ -14,7 +14,7 @@ buffer_radius = 400
 G = ox.graph_from_point(point, dist=buffer_radius, dist_type='bbox', network_type='drive')
 tags = {'highway': ['traffic_signals', 'street_lamp'], 'amenity': ['traffic_signals']}
 place_gdf = ox.features_from_point(point, tags, dist=buffer_radius)
-
+#metric coordinates
 G_projected = ox.project_graph(G)
 gdf_edges = ox.graph_to_gdfs(G_projected, nodes=False, edges=True)
 gdf_nodes = ox.graph_to_gdfs(G_projected, nodes=True, edges=False)
@@ -29,7 +29,7 @@ default_widths = {
     'default': 1.5 * standard_lane_width
 }
 
-
+#tries different ways to get road width
 def get_width(row, G_projected):
     u, v, key = row.name 
     width, lanes, highway = row.get('width'), row.get('lanes'), row.get('highway')
@@ -93,7 +93,7 @@ road_colors = {
     'secondary': '#336633', 'tertiary': '#666666', 'residential': '#999999',
     'service': '#AAAAAA', 'unclassified': '#CCCCCC', 'default': '#999999'
 }
-
+#plots roads
 fig, ax = ox.plot_graph(G_projected, bgcolor='white', node_size=0, show=False, close=True)
 
 gdf_edges_polygons.plot(ax=ax, color=gdf_edges_polygons['highway'].map(
@@ -113,7 +113,7 @@ for _, row in gdf_edges.iterrows():
                         ax.plot(*offset_line.xy, color='#FFFFFF', linestyle='--', linewidth=0.75, zorder=3)
                     except Exception:
                         pass
-
+#labels streets
 named_streets = gdf_edges.dropna(subset=['name']).groupby('name')
 label_y_offset = 0
 text_x_pos = max(gdf_edges.geometry.bounds['maxx']) + 50
