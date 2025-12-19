@@ -1,6 +1,8 @@
+To get images, I recommend going to a blurry spot in google earth (actually google maps) and zooming in as far as possible. This gives the code as many pixels to work with.
+
 Non-adaptive thresholding is similiar to the code in apple maps.
 
-The adaptive thresholding file also includes cleaning functions. The tunable parameters are fairly self-explanatory and set the limits for what contours the code will consider as lanes.
+The adaptive thresholding file also includes cleaning functions. The tunable parameters are fairly self-explanatory and set the limits for what contours the code will consider as lanes or road markings.
 
 The first part of the code computes the intensity gradient. It then scans through and detects edges which are detected as intensity going from low -> high -> low. This is done in both the x and y axis. The edge detection range for road markings is given by the min and max width variables. For detected edges, it sets the colour to white.
 
