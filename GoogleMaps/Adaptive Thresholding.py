@@ -26,7 +26,7 @@ gray = cv2.cvtColor(img_rgb, cv2.COLOR_RGB2GRAY)
 gray_blur = cv2.GaussianBlur(gray, (1, 1), 0)
 road_mask = np.ones_like(gray, dtype=np.uint8) * 255
 
-
+#edge detection
 grad_x = cv2.Sobel(gray_blur, cv2.CV_32F, 1, 0, ksize=3)
 grad_y = cv2.Sobel(gray_blur, cv2.CV_32F, 0, 1, ksize=3)
 mask = np.zeros_like(gray, dtype=np.uint8)
@@ -52,16 +52,17 @@ for x in range(w):
                     mask[y + d, x] = 255
                     break
 
-
+#morphological cleaning
 kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (1, 1))
 mask = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernel)
 mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel)
 
 
-
+#contour detection
 lane_contours, _ = cv2.findContours(mask.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 filtered_lane_mask = np.zeros_like(gray, dtype=np.uint8) # Mask to hold only valid lanes
 
+#squarish contour removal
 for c in lane_contours:
     area = cv2.contourArea(c)
 
@@ -83,7 +84,7 @@ for c in lane_contours:
 combined_mask = filtered_lane_mask
 
 
-
+#car removal
 car_candidates = cv2.inRange(gray, 0, 80)
 car_candidates = cv2.bitwise_and(car_candidates, road_mask)
 
