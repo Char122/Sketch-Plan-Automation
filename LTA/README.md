@@ -7,7 +7,8 @@ There's two versions, one generates a .png and the other .dxf. The .dxf can be i
 ## LTA-DXF
 The first section of the code is just some tunable parameters. The only ones that the users need to input are radius and lat-lon coords. There are some hard coded dictionaries since each API has its own data structure. 
 
-get_feature_type() and get_feature_name() deal with data extraction.
+### Data Extraction
+get_feature_type() and get_feature_name() deal with data extraction from the data retrieved form the API.
 
 get_filtered_cache_key(), load_filtered_features() and save_filtered_features() do caching and cache loading.
 
